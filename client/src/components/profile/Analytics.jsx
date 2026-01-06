@@ -12,13 +12,14 @@ import { analyticsData } from "../../data/mockAnalytics";
 
 export default function Analytics() {
   return (
-    <div className="analytics">
+    <section className="analytics">
       <h2>Activity Insights</h2>
 
-      <div className="analytics-grid">
-        <div className="glass analytics-card">
-          <h3>Money Spent</h3>
-          <ResponsiveContainer width="100%" height={220}>
+      <div className="analytics-layout">
+        {/* Main Chart */}
+        <div className="glass analytics-main">
+          <h3>Money Spent Over Time</h3>
+          <ResponsiveContainer width="100%" height={260}>
             <LineChart data={analyticsData}>
               <XAxis dataKey="month" />
               <YAxis />
@@ -33,21 +34,10 @@ export default function Analytics() {
           </ResponsiveContainer>
         </div>
 
-        <div className="glass analytics-card">
-          <h3>Items Purchased</h3>
-          <ResponsiveContainer width="100%" height={220}>
-            <BarChart data={analyticsData}>
-              <XAxis dataKey="month" />
-              <YAxis />
-              <Tooltip />
-              <Bar dataKey="items" fill="#22c55e" />
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
-
-        <div className="glass analytics-card">
+        {/* Side Chart */}
+        <div className="glass analytics-side">
           <h3>Coins Earned</h3>
-          <ResponsiveContainer width="100%" height={220}>
+          <ResponsiveContainer width="100%" height={260}>
             <LineChart data={analyticsData}>
               <XAxis dataKey="month" />
               <YAxis />
@@ -62,6 +52,19 @@ export default function Analytics() {
           </ResponsiveContainer>
         </div>
       </div>
-    </div>
+
+      {/* Bar Chart */}
+      <div className="glass analytics-bar">
+        <h3>Items Purchased</h3>
+        <ResponsiveContainer width="100%" height={260}>
+          <BarChart data={analyticsData}>
+            <XAxis dataKey="month" />
+            <YAxis />
+            <Tooltip />
+            <Bar dataKey="items" fill="#22c55e" />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+    </section>
   );
 }

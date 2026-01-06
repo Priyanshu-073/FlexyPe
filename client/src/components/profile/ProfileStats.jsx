@@ -3,11 +3,13 @@ import StatCard from "./StatCard";
 export default function ProfileStats({ stats }) {
   return (
     <div className="stats-grid">
-      {stats.map((item, i) => (
+      {stats.map((stat) => (
         <StatCard
-          key={i}
-          value={item.value}
-          label={item.label}
+          key={stat.label}
+          label={stat.label}
+          value={stat.value}
+          trend={stat.trend}
+          icon={stat.icon}
         />
       ))}
     </div>

@@ -1,21 +1,20 @@
 import { useEffect, useState } from "react";
 
-export default function StatCard({ value, label }) {
+export default function StatCard({ label, value, trend, icon }) {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    let start = 0;
-    const end = typeof value === "number" ? value : value;
-    if (typeof end !== "number") return;
+    if (typeof value !== "number") return;
 
-    const duration = 800;
+    let start = 0;
+    const duration = 700;
     const stepTime = 20;
-    const increment = end / (duration / stepTime);
+    const increment = value / (duration / stepTime);
 
     const timer = setInterval(() => {
       start += increment;
-      if (start >= end) {
-        setCount(end);
+      if (start >= value) {
+        setCount(value);
         clearInterval(timer);
       } else {
         setCount(Math.floor(start));
@@ -27,7 +26,14 @@ export default function StatCard({ value, label }) {
 
   return (
     <div className="stat-card glass">
-      <h3>{typeof value === "number" ? count : value}</h3>
+      <div className="stat-top">
+        <span className="stat-icon">{icon}</span>
+        <span className={`stat-trend ${trend >= 0 ? "up" : "down"}`}>
+          {trend >= 0 ? `▲ ${trend}%` : `▼ ${Math.abs(trend)}%`}
+        </span>
+      </div>
+
+      <h3>{typeof value === "number" ? count.toLocaleString() : value}</h3>
       <p>{label}</p>
     </div>
   );

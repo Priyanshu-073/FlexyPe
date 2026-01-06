@@ -4,8 +4,9 @@ import ProfileHero from "../components/profile/ProfileHero";
 import ProfileStats from "../components/profile/ProfileStats";
 import Interests from "../components/profile/Interests";
 import ActivityTimeline from "../components/profile/ActivityTimeline";
-import ThemeToggle from "../components/ThemeToggle";
+import ThemeToggle from "../components/common/ThemeToggle";
 import Analytics from "../components/profile/Analytics";
+import DashboardLayout from "../components/layout/DashboardLayout";
 
 
 export default function Profile() {
@@ -19,13 +20,13 @@ export default function Profile() {
   ];
 
   return (
-    <div className="profile-page">
+    <DashboardLayout>
       <ThemeToggle />
       <ProfileHero profile={mockProfile} />
       <ProfileStats stats={stats} />
       <Interests interests={interests} setInterests={setInterests} />
       <Analytics />
       <ActivityTimeline />
-    </div>
+    </DashboardLayout>
   );
 }
