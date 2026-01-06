@@ -26,7 +26,7 @@ export default function StatCard({ value, label }) {
   }, [value]);
 
   return (
-    <div className="stat-card">
+    <div className="stat-card glass">
       <h3>{typeof value === "number" ? count : value}</h3>
       <p>{label}</p>
     </div>

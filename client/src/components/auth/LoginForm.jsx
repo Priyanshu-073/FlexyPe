@@ -12,7 +12,7 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="auth-card">
+    <div className="auth-card glass">
       <h2>Welcome Back</h2>
       <input placeholder="Email" />
       <input type="password" placeholder="Password" />

@@ -8,7 +8,7 @@ export default function ProfileHero({ profile }) {
   }, []);
 
   return (
-    <div className={`profile-hero ${visible ? "show" : ""}`}>
+    <div className={`profile-hero glass ${visible ? "show" : ""}`}>
       <h1>{profile.name}</h1>
       <span className="tier">{profile.tier}</span>
       <p>{profile.tagline}</p>
