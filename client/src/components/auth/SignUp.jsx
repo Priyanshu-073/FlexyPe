@@ -3,17 +3,19 @@ import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
-  const { login } = useContext(AuthContext);
+  const { register } = useContext(AuthContext);
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSignUp = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
-    
+    setError("");
+
     if (!name || !email || !password || !confirmPassword) {
       setError("All fields are required");
       return;
@@ -28,9 +30,17 @@ const SignUp = () => {
       setError("Password must be at least 6 characters");
       return;
     }
-    
-    login({ name, email });
-    navigate("/profile");
+
+    setLoading(true);
+
+    try {
+      await register(email, password, name);
+      navigate("/profile");
+    } catch (err) {
+      setError(err.message || "Registration failed. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -50,6 +60,7 @@ const SignUp = () => {
               placeholder="Enter your name" 
               value={name}
               onChange={(e) => setName(e.target.value)}
+              disabled={loading}
               required
             />
           </div>
@@ -62,6 +73,7 @@ const SignUp = () => {
               placeholder="Enter your email" 
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              disabled={loading}
               required
             />
           </div>
@@ -74,6 +86,7 @@ const SignUp = () => {
               placeholder="Create a password" 
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              disabled={loading}
               required
             />
           </div>
@@ -86,13 +99,20 @@ const SignUp = () => {
               placeholder="Confirm your password" 
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
+              disabled={loading}
               required
             />
           </div>
           
           {error && <p className="error-message">{error}</p>}
           
-          <button type="submit" className="auth-btn primary">Create Account</button>
+          <button 
+            type="submit" 
+            className="auth-btn primary"
+            disabled={loading}
+          >
+            {loading ? "Creating Account..." : "Create Account"}
+          </button>
         </form>
         
         <div className="auth-divider">
@@ -102,6 +122,7 @@ const SignUp = () => {
         <button 
           className="auth-btn secondary" 
           onClick={() => navigate("/")}
+          disabled={loading}
         >
           Sign In
         </button>

@@ -7,12 +7,26 @@ export default function LoginForm() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    if (email && password) {
-      login({ name: "boy909", email });
+    setError("");
+    setLoading(true);
+
+    try {
+      if (!email || !password) {
+        setError("Please fill in all fields");
+        setLoading(false);
+        return;
+      }
+
+      await login(email, password);
       navigate("/profile");
+    } catch (err) {
+      setError(err.message || "Login failed. Please try again.");
+      setLoading(false);
     }
   };
 
@@ -23,6 +37,8 @@ export default function LoginForm() {
           <h1>Welcome Back</h1>
           <p>Sign in to your account</p>
         </div>
+
+        {error && <div className="error-message">{error}</div>}
         
         <form onSubmit={handleLogin} className="auth-form">
           <div className="form-group">
@@ -33,6 +49,7 @@ export default function LoginForm() {
               placeholder="Enter your email" 
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              disabled={loading}
               required
             />
           </div>
@@ -45,11 +62,18 @@ export default function LoginForm() {
               placeholder="Enter your password" 
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              disabled={loading}
               required
             />
           </div>
           
-          <button type="submit" className="auth-btn primary">Sign In</button>
+          <button 
+            type="submit" 
+            className="auth-btn primary"
+            disabled={loading}
+          >
+            {loading ? "Signing in..." : "Sign In"}
+          </button>
         </form>
         
         <div className="auth-divider">
@@ -59,6 +83,7 @@ export default function LoginForm() {
         <button 
           className="auth-btn secondary" 
           onClick={() => navigate("/signup")}
+          disabled={loading}
         >
           Create Account
         </button>
