@@ -32,3 +32,10 @@ export const mockActivity = [
     date: "Dec 2024"
   }
 ];
+export const analyticsData = [
+  { month: "Aug", spent: 1200, items: 4, coins: 120 },
+  { month: "Sep", spent: 2400, items: 8, coins: 260 },
+  { month: "Oct", spent: 1800, items: 6, coins: 310 },
+  { month: "Nov", spent: 3200, items: 10, coins: 520 },
+  { month: "Dec", spent: 4100, items: 14, coins: 780 }
+];
