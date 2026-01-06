@@ -7,7 +7,7 @@ export default function OrdersPage() {
       id: "ORD-001",
       date: "Jan 5, 2026",
       items: 3,
-      total: "$89.99",
+      total: "89.99",
       status: "Delivered",
       icon: "📦",
       progress: 4
@@ -16,7 +16,7 @@ export default function OrdersPage() {
       id: "ORD-002",
       date: "Jan 3, 2026",
       items: 2,
-      total: "$45.50",
+      total: "45.50",
       status: "Delivered",
       icon: "📦",
       progress: 4
@@ -25,7 +25,7 @@ export default function OrdersPage() {
       id: "ORD-003",
       date: "Dec 28, 2025",
       items: 5,
-      total: "$156.75",
+      total: "156.75",
       status: "Delivered",
       icon: "📦",
       progress: 4
@@ -34,7 +34,7 @@ export default function OrdersPage() {
       id: "ORD-004",
       date: "Dec 20, 2025",
       items: 1,
-      total: "$32.00",
+      total: "32.00",
       status: "In Transit",
       icon: "🚚",
       progress: 2

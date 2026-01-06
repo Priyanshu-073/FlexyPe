@@ -1,8 +1,11 @@
-import { NavLink } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 export default function Sidebar() {
   const [isExpanded, setIsExpanded] = useState(true);
+  const { logout } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const dashboard = document.querySelector(".dashboard");
@@ -17,6 +20,11 @@ export default function Sidebar() {
 
   const toggleSidebar = () => {
     setIsExpanded(!isExpanded);
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
   };
 
   return (
@@ -53,7 +61,7 @@ export default function Sidebar() {
 
       {/* Bottom */}
       <div className="sidebar-footer">
-        <button className="logout-btn" title="Logout">
+        <button className="logout-btn" onClick={handleLogout} title="Logout">
           {isExpanded ? "↩ Logout" : "↩"}
         </button>
       </div>

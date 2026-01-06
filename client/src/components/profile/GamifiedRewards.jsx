@@ -6,6 +6,8 @@ export default function GamifiedRewards() {
   const [canSpin, setCanSpin] = useState(true);
   const [spinCount, setSpinCount] = useState(0);
   const [rotation, setRotation] = useState(0);
+  const [points, setPoints] = useState(2500);
+  const SPIN_COST = 500;
 
   const rewards = [
     { id: 1, icon: "🎁", title: "10% OFF", description: "Get 10% discount on your next purchase", color: "#ff6b6b" },
@@ -17,10 +19,11 @@ export default function GamifiedRewards() {
   ];
 
   const handleSpin = () => {
-    if (!canSpin) return;
+    if (!canSpin || points < SPIN_COST) return;
 
     setSpun(true);
     setCanSpin(false);
+    setPoints(points - SPIN_COST);
 
     const randomIndex = Math.floor(Math.random() * rewards.length);
     const newRotation = Math.floor(Math.random() * 360) + (360 * 5);
@@ -39,18 +42,24 @@ export default function GamifiedRewards() {
   return (
     <div className="gamified-rewards glass">
       <div className="rewards-header">
-        <h3>🎮 Daily Spin & Win</h3>
-        <p>Spin the wheel to win amazing coupons and discounts!</p>
+        <div>
+          <h3>🎮 Daily Spin & Win</h3>
+          <p>Spin the wheel to win amazing coupons and discounts!</p>
+        </div>
+        <div className="points-display">
+          <span className="points-label">Your Points</span>
+          <span className="points-value">{points}</span>
+        </div>
       </div>
 
       <div className="rewards-content">
-        <div className="spin-wheel-container">
+        <div className="spin-wheel-container" style={{ maxWidth: '280px', margin: '0 auto' }}>
           <div className="wheel-wrapper">
             <div className="pointer"></div>
             <svg
               className={`spin-wheel ${spun ? "spinning" : ""}`}
               viewBox="0 0 300 300"
-              style={{ transform: `rotate(${rotation}deg)` }}
+              style={{ transform: `rotate(${rotation}deg)`, width: '280px', height: '280px' }}
             >
               {rewards.map((reward, index) => {
                 const angle = (index * 360) / rewards.length;
@@ -97,11 +106,11 @@ export default function GamifiedRewards() {
           </div>
           
           <button
-            className={`spin-btn ${!canSpin ? "disabled" : ""}`}
+            className={`spin-btn ${!canSpin || points < SPIN_COST ? "disabled" : ""}`}
             onClick={handleSpin}
-            disabled={!canSpin}
+            disabled={!canSpin || points < SPIN_COST}
           >
-            {canSpin ? "🎯 SPIN NOW" : "⏳ TOMORROW"}
+            {!canSpin ? "⏳ COOLDOWN" : points < SPIN_COST ? `❌ NEED ${SPIN_COST} PTS` : `🎯 SPIN (${SPIN_COST} PTS)`}
           </button>
         </div>
 

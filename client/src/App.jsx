@@ -5,18 +5,27 @@ import Profile from "./pages/Profile";
 import Analytics from "./pages/Analytics";
 import Interests from "./pages/Interests";
 import Orders from "./pages/Orders";
+import { AuthProvider } from './context/AuthContext';
+import { NotificationProvider } from './context/NotificationContext';
+import NotificationContainer from './components/common/NotificationContainer';
+import ProtectedRoute from './components/common/ProtectedRoute';
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/analytics" element={<Analytics />} />
-        <Route path="/interests" element={<Interests />} />
-        <Route path="/orders" element={<Orders />} />
-      </Routes>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <NotificationProvider>
+          <NotificationContainer />
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+            <Route path="/analytics" element={<ProtectedRoute><Analytics /></ProtectedRoute>} />
+            <Route path="/interests" element={<ProtectedRoute><Interests /></ProtectedRoute>} />
+            <Route path="/orders" element={<ProtectedRoute><Orders /></ProtectedRoute>} />
+          </Routes>
+        </NotificationProvider>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
