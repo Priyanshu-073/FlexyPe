@@ -1,4 +1,5 @@
 import DashboardLayout from "../components/layout/DashboardLayout";
+import "../styles/orders.css";
 
 export default function OrdersPage() {
   const orders = [
@@ -8,7 +9,8 @@ export default function OrdersPage() {
       items: 3,
       total: "$89.99",
       status: "Delivered",
-      icon: "📦"
+      icon: "📦",
+      progress: 4
     },
     {
       id: "ORD-002",
@@ -16,7 +18,8 @@ export default function OrdersPage() {
       items: 2,
       total: "$45.50",
       status: "Delivered",
-      icon: "📦"
+      icon: "📦",
+      progress: 4
     },
     {
       id: "ORD-003",
@@ -24,7 +27,8 @@ export default function OrdersPage() {
       items: 5,
       total: "$156.75",
       status: "Delivered",
-      icon: "📦"
+      icon: "📦",
+      progress: 4
     },
     {
       id: "ORD-004",
@@ -32,9 +36,12 @@ export default function OrdersPage() {
       items: 1,
       total: "$32.00",
       status: "In Transit",
-      icon: "🚚"
+      icon: "🚚",
+      progress: 2
     }
   ];
+
+  const progressSteps = ["Ordered", "Confirmed", "Shipped", "Delivered"];
 
   return (
     <DashboardLayout>
@@ -65,6 +72,28 @@ export default function OrdersPage() {
                 <div className="detail">
                   <span className="label">Total:</span>
                   <span className="value price">{order.total}</span>
+                </div>
+              </div>
+
+              <div className="order-progress">
+                <div className="progress-steps">
+                  {progressSteps.map((step, index) => (
+                    <div
+                      key={index}
+                      className={`progress-step ${index < order.progress ? "active" : ""}`}
+                    >
+                      <div className="step-dot"></div>
+                      <span className="step-label">{step}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="progress-bar-container">
+                  <div
+                    className="progress-bar-fill"
+                    style={{
+                      width: `${((order.progress - 1) / (progressSteps.length - 1)) * 100}%`
+                    }}
+                  ></div>
                 </div>
               </div>
 
