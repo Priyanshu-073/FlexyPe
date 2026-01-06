@@ -5,6 +5,7 @@ import ProfileStats from "../components/profile/ProfileStats";
 import Interests from "../components/profile/Interests";
 import ActivityTimeline from "../components/profile/ActivityTimeline";
 import Analytics from "../components/profile/Analytics";
+import GamifiedRewards from "../components/profile/GamifiedRewards";
 import DashboardLayout from "../components/layout/DashboardLayout";
 
 
@@ -25,6 +26,7 @@ export default function Profile() {
       <Interests interests={interests} setInterests={setInterests} />
       <Analytics />
       <ActivityTimeline />
+      <GamifiedRewards />
     </DashboardLayout>
   );
 }

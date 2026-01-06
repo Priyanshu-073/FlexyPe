@@ -21,13 +21,8 @@ export default function Sidebar() {
 
   return (
     <aside className={`sidebar ${isExpanded ? "" : "collapsed"}`}>
-      {/* Toggle Button */}
-      <button className="sidebar-toggle" onClick={toggleSidebar}>
-        {isExpanded ? "◄" : "►"}
-      </button>
-
-      {/* Logo */}
-      <div className="sidebar-logo">
+      {/* Logo - Clickable to Toggle */}
+      <div className="sidebar-logo" onClick={toggleSidebar} style={{cursor: 'pointer'}}>
         <span className="logo-icon">🟧</span>
         {isExpanded && <span className="logo-text">Mboard</span>}
       </div>
@@ -45,6 +40,10 @@ export default function Sidebar() {
         <NavLink to="/interests" className="nav-item" title="Interests">
           <span className="nav-icon">❤️</span>
           {isExpanded && <span className="nav-text">Interests</span>}
+        </NavLink>
+        <NavLink to="/orders" className="nav-item" title="Orders">
+          <span className="nav-icon">📦</span>
+          {isExpanded && <span className="nav-text">Orders</span>}
         </NavLink>
         <NavLink to="/settings" className="nav-item" title="Settings">
           <span className="nav-icon">⚙️</span>

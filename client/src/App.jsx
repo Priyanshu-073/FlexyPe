@@ -4,6 +4,7 @@ import Signup from "./pages/SignUp";
 import Profile from "./pages/Profile";
 import Analytics from "./pages/Analytics";
 import Interests from "./pages/Interests";
+import Orders from "./pages/Orders";
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/analytics" element={<Analytics />} />
         <Route path="/interests" element={<Interests />} />
+        <Route path="/orders" element={<Orders />} />
       </Routes>
     </BrowserRouter>
   );
